@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Validator;
 class RolesController extends Controller
 {
     //
-    public function store(Request $reques){
-        $validator = Validator::make($reques->all(),[
-            'rol' => 'require|string'
+    public function store(Request $request){
+        $validator = Validator::make($request->all(),[
+            'rol' => 'required|string'
         ]);
 
         if($validator->fails()){
@@ -21,7 +21,7 @@ class RolesController extends Controller
         $validated = $validator->validated();
 
         $rol = roles::create([
-            'rol' => $reques->rol
+            'rol' => $request->rol
         ]);
 
         return response()->json(['message' => 'Rol agregado Correctamente', 'rol'=> $rol],201);

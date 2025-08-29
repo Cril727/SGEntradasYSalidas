@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\RolPersonasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/agregarUsuario', [AuthController::class, "agregarUsuario"]);
 Route::post('/agregarRol', [RolesController::class, 'store']);
+Route::post('/asignarRol', [RolPersonasController::class, 'asignarRol']);
 
 Route::middleware('auth:api')->group(function(){
     

@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable ;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class personas extends Model
+class personas extends Authenticatable implements JWTSubject
 {
     //
     protected $table = 'personas';
@@ -26,4 +28,16 @@ class personas extends Model
         //muchos a uno  belongsTo
         return $this->belongsTo(fichas::class, 'idFicha');
     }
+
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
+
 }
