@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Validator;
 class RolesController extends Controller
 {
     //
+    public function listarRoles(){
+        $rol = roles::all();
+        return response()->json([$rol],200);
+    }
+    
+
     public function store(Request $request){
         $validator = Validator::make($request->all(),[
             'rol' => 'required|string'

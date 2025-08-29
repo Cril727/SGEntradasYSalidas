@@ -6,6 +6,7 @@ use App\Models\personas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Js;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -44,5 +45,37 @@ class AuthController extends Controller
                                  "message"=>"Creado correctamente",
                                   "token"=>$token],201);
 
+    }
+
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'email' => 'required|email',
+            'password'  => 'required|string|min:8',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['errors' => $validator->errors()]);
+        }
+
+        $credenciales = $request->only('email','password');
+        if(!$token = JWTAuth::attempt($credenciales)){
+            return response()->json([
+                'success' => false,
+                'message' => 'credenciales invalidas'
+            ],401);
+        }
+
+        return response()->json([
+            'message' => 'Bienvenido',
+            'token' => $token
+        ],200);
+    }
+
+    public function me()
+    {
+        $user = auth('api')->user()->load('roles:idRol,rol');
+        return response()->json($user);
     }
 }

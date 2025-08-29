@@ -29,6 +29,10 @@ class personas extends Authenticatable implements JWTSubject
         return $this->belongsTo(fichas::class, 'idFicha');
     }
 
+    public function roles(){
+        return $this->belongsToMany(roles::class, 'idRolPersona', 'idPersona', 'idRol');
+    }
+
 
     public function getJWTIdentifier()
     {

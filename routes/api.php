@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::post('/agregarUsuario', [AuthController::class, "agregarUsuario"]);
-Route::post('/agregarRol', [RolesController::class, 'store']);
+
 Route::post('/asignarRol', [RolPersonasController::class, 'asignarRol']);
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function(){
-    
+    Route::get('/listarRoles', [RolesController::class, 'listarRoles'])->middleware('role:vigilante');
+    Route::post('/agregarRol', [RolesController::class, 'store'])->middleware('role:vigilante');
 });
 
