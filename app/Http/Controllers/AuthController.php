@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\personas;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -75,7 +76,19 @@ class AuthController extends Controller
 
     public function me()
     {
-        $user = auth('api')->user()->load('roles:idRol,rol');
-        return response()->json($user);
+        return response()->json([
+            'success' => true,
+            'user' => JWTAuth::user()
+        ]);
+    }
+
+    public function logout(Request $request){
+        try {
+            $user = JWTAuth::user();
+            JWTAuth::invalidate(JWTAuth::getToken());
+            return response()->json(['success' => true, 'message' => 'sesion cerrada Correctamente']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
     }
 }

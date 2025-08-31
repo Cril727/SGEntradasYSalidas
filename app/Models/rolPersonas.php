@@ -20,7 +20,7 @@ class rolPersonas extends Model
         return $this->belongsTo(roles::class, 'idRol', 'idRol');
     }
 
-    public function persona(){
+    public function personas(){
         return $this->belongsTo(personas::class, 'idPersona', 'idPersona');
     }
 

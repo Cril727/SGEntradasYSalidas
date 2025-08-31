@@ -27,4 +27,8 @@ class elementos extends Model
     public function persona(){
         return $this->belongsTo(personas::class, 'idPersona', 'idPersona');
     }
+
+    public function ingresoElemento(){
+        return $this->hasMany(ingresoElementos::class, 'idIngresoElemento', 'idIngresoElemento');
+    } 
 }

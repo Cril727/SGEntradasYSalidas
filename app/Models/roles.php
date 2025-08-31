@@ -15,6 +15,6 @@ class roles extends Model
     ];
 
     public function personas(){
-        return $this->belongsToMany(personas::class,'idRolPersona', 'idRol', 'idPersona');
+       return $this->belongsToMany(personas::class, 'rolPersonas', 'idRol', 'idPersona');
     }
 }
