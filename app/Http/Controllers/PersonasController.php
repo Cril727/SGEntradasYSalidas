@@ -12,8 +12,11 @@ class PersonasController extends Controller
     {
 
         $persona = personas::where('documento', $documento)
-                    ->with('elementos.tipo')
-                    ->first();
+            ->with([
+                'elementos.tipo',
+                'elementos.ultimoIngresoElemento',
+                'roles'
+            ])->first();
 
         if (!$persona) {
             return response()->json(['success' => false, 'error' => 'persona no encontrada'], 404);

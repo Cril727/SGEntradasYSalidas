@@ -33,5 +33,6 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/salida',[SalidasController::class, 'store'])->middleware('role:admin');
     Route::get('/ingresosElementos', [IngresoElementosController::class, 'index'])->middleware('role:admin');
     Route::get('/listarTipos',[TiposController::class, 'index'])->middleware('role:admin');
+    Route::put('/actualizarIngresoElementos/{idIngresoElemento}',[IngresoElementosController::class, 'update'])->middleware('role:admin');
 });
 

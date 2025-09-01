@@ -28,7 +28,13 @@ class elementos extends Model
         return $this->belongsTo(personas::class, 'idPersona', 'idPersona');
     }
 
-    public function ingresoElemento(){
-        return $this->hasMany(ingresoElementos::class, 'idIngresoElemento', 'idIngresoElemento');
-    } 
+        public function ingresoElementos()
+    {
+        return $this->hasMany(ingresoElementos::class, 'idElemento', 'idElemento');
+    }
+
+    public function ultimoIngresoElemento()
+    {
+        return $this->hasOne(ingresoElementos::class, 'idElemento', 'idElemento')->latestOfMany('idIngresoElemento');
+    }
 }
